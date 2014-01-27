@@ -5,6 +5,7 @@ use League\OAuth2\Client\Provider\IdentityProvider as LeagueIdentityProvider;
 use League\OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
 use Guzzle\Service\Client as GuzzleClient;
 use League\OAuth2\Client\Exception\IDPException as LeagueIDPException;
+use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 /**
 *
