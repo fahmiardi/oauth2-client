@@ -2,8 +2,9 @@
 namespace Cardvs\OAuth2\Client\Provider;
 
 use OAuth2\Client\Provider\IdentityProvider as LeagueIdentityProvider;
-use OAuth2\Client\Grant\Authorizationcode as LeagueAuthorizationcode;
 use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
+use Guzzle\Service\Client as GuzzleClient;
+use OAuth2\Client\Exception\IDPException as LeagueIDPException;
 
 /**
 *
@@ -39,18 +40,18 @@ abstract class IdentityProvider extends LeagueIdentityProvider
         try {
             switch ($this->method) {
                 case 'get':
-                    $client = new \GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
+                    $client = new GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
                     $request = $client->get()->send();
                     $response = $request->getBody();
                     break;
                 case 'post':
-                    $client = new \GuzzleClient($this->urlAccessToken());
+                    $client = new GuzzleClient($this->urlAccessToken());
                     $request = $client->post(null, null, $requestParams)->send();
                     $response = $request->getBody();
                     break;
                 case 'put':
                 case 'delete':
-                    $client = new \GuzzleClient($this->urlAccessToken());
+                    $client = new GuzzleClient($this->urlAccessToken());
                     $requestParamsOriginal = $requestParams;
                     unset($requestParams['authorization']);
                     $request = $client->post(null, isset($requestParamsOriginal['authorization']) ? $requestParamsOriginal['authorization'] : null, $requestParams)->send();
@@ -72,7 +73,7 @@ abstract class IdentityProvider extends LeagueIdentityProvider
         }
 
         if (isset($result['error']) && ! empty($result['error'])) {
-            throw new \IDPException($result);
+            throw new LeagueIDPException($result);
         }
 
         return $grant->handleResponse($result);
