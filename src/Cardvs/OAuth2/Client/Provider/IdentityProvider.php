@@ -10,6 +10,14 @@ use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
 */
 class IdentityProvider extends LeagueIdentityProvider
 {
+    public function __construct($options = array())
+    {
+        foreach ($options as $option => $value) {
+            if (isset($this->{$option})) {
+                $this->{$option} = $value;
+            }
+        }
+    }
 
     public function getAccessToken(LeagueAuthorizationcode $grant, $params = array())
     {
