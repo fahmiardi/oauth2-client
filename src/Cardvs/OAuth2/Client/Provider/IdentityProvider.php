@@ -45,10 +45,6 @@ abstract class IdentityProvider extends LeagueIdentityProvider
                     $response = $request->getBody();
                     break;
                 case 'post':
-                    $client = new GuzzleClient($this->urlAccessToken());
-                    $request = $client->post(null, null, $requestParams)->send();
-                    $response = $request->getBody();
-                    break;
                 case 'put':
                 case 'delete':
                     $client = new GuzzleClient($this->urlAccessToken());
