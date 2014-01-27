@@ -1,0 +1,39 @@
+{
+    "name": "cardvs/oauth2-client",
+    "description": "Cardvs OAuth2 Client PHP SDK",
+    "version": "dev-develop",
+    "homepage": "https://github.com/fahmiardi/oauth2-client",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "league/oauth2-client": "0.1"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/fahmiardi/oauth2-client.git"
+        }
+    ],
+    "keywords": [
+        "oauth",
+        "oauth2",
+        "authorization",
+        "authentication",
+        "idp",
+        "identity",
+        "sso",
+        "single sign on"
+    ],
+    "authors": [
+        {
+            "name": "Fahmi Ardi",
+            "email": "f4hem.net@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Cardvs\\OAuth2\\Client": "src/"
+        }
+    }
+}
