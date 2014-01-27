@@ -39,18 +39,18 @@ abstract class IdentityProvider extends LeagueIdentityProvider
         try {
             switch ($this->method) {
                 case 'get':
-                    $client = new GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
+                    $client = new \GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
                     $request = $client->get()->send();
                     $response = $request->getBody();
                     break;
                 case 'post':
-                    $client = new GuzzleClient($this->urlAccessToken());
+                    $client = new \GuzzleClient($this->urlAccessToken());
                     $request = $client->post(null, null, $requestParams)->send();
                     $response = $request->getBody();
                     break;
                 case 'put':
                 case 'delete':
-                    $client = new GuzzleClient($this->urlAccessToken());
+                    $client = new \GuzzleClient($this->urlAccessToken());
                     $requestParamsOriginal = $requestParams;
                     unset($requestParams['authorization']);
                     $request = $client->post(null, isset($requestParamsOriginal['authorization']) ? $requestParamsOriginal['authorization'] : null, $requestParams)->send();
@@ -72,7 +72,7 @@ abstract class IdentityProvider extends LeagueIdentityProvider
         }
 
         if (isset($result['error']) && ! empty($result['error'])) {
-            throw new IDPException($result);
+            throw new \IDPException($result);
         }
 
         return $grant->handleResponse($result);
