@@ -1,7 +1,7 @@
 <?php
 namespace Cardvs\OAuth2\Client\Provider;
 
-use OAuth2\Client\Provider\User as LeagueUser;
+use League\OAuth2\Client\Provider\User as LeagueUser;
 
 /**
 *

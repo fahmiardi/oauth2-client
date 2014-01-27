@@ -1,10 +1,10 @@
 <?php
 namespace Cardvs\OAuth2\Client\Provider;
 
-use OAuth2\Client\Provider\IdentityProvider as LeagueIdentityProvider;
-use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
+use League\OAuth2\Client\Provider\IdentityProvider as LeagueIdentityProvider;
+use League\OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
 use Guzzle\Service\Client as GuzzleClient;
-use OAuth2\Client\Exception\IDPException as LeagueIDPException;
+use League\OAuth2\Client\Exception\IDPException as LeagueIDPException;
 
 /**
 *
@@ -18,14 +18,14 @@ abstract class IdentityProvider extends LeagueIdentityProvider
             if (isset($params['self']) && $params['self'] == true) {
                 $grant = 'Cardvs\\OAuth2\\Client\\Grant\\'.ucfirst(str_replace('_', '', $grant));
             } else {
-                $grant = 'OAuth2\\Client\\Grant\\'.ucfirst(str_replace('_', '', $grant));
+                $grant = 'League\\OAuth2\\Client\\Grant\\'.ucfirst(str_replace('_', '', $grant));
             }
             if ( ! class_exists($grant)) {
                 throw new \InvalidArgumentException('Unknown grant "'.$grant.'"');
             }
             $grant = new $grant;
         } elseif ( ! $grant instanceof LeagueGrantInterface) {
-            throw new \InvalidArgumentException($grant.' is not an instance of OAuth2\Client\Grant\GrantInterface');
+            throw new \InvalidArgumentException($grant.' is not an instance of League\OAuth2\Client\Grant\GrantInterface');
         }
 
         $defaultParams = [

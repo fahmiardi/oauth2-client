@@ -1,8 +1,8 @@
 <?php
 namespace Cardvs\OAuth2\Client\Grant;
 
-use OAuth2\Client\Token\AccessToken as LeagueAccessToken;
-use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
+use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
+use League\OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
 
 class Clientcredentials implements LeagueGrantInterface
 {

@@ -2,7 +2,7 @@
 namespace Cardvs\OAuth2\Client\Provider;
 
 use Cardvs\OAuth2\Client\Provider\IdentityProvider;
-use OAuth2\Client\Token\AccessToken as LeagueAccessToken;
+use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 /**
 *
