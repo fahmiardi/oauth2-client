@@ -3,6 +3,7 @@ namespace Cardvs\OAuth2\Client\Provider;
 
 use Cardvs\OAuth2\Client\Provider\IdentityProvider;
 use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
+use Cardvs\OAuth2\Client\Provider\User;
 
 /**
 *
@@ -28,7 +29,7 @@ class Cardvs extends IdentityProvider
     public function userDetails($response, LeagueAccessToken $token)
     {
         $response = (array) $response;
-        $user = new Cardvs\OAuth2\Client\Provider\User;
+        $user = new User;
         $user->uid = $response['userId'];
         $user->name = $response['fullname'];
         $user->email = $response['email'];
