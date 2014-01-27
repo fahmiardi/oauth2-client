@@ -4,7 +4,7 @@ namespace Cardvs\OAuth2\Client\Provider;
 /**
 *
 */
-class User extends League\OAuth2\Client\Provider\User
+class User extends OAuth2\Client\Provider\User
 {
 
     public $gender = null;

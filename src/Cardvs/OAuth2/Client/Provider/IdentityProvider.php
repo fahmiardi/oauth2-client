@@ -4,18 +4,18 @@ namespace Cardvs\OAuth2\Client\Provider;
 /**
 *
 */
-class IdentityProvider extends League\OAuth2\Client\Provider\IdentityProvider
+class IdentityProvider extends OAuth2\Client\Provider\IdentityProvider
 {
 
-    public function getAccessToken(League\OAuth2\Client\Grant\Authorizationcode $grant, $params = array())
+    public function getAccessToken(OAuth2\Client\Grant\Authorizationcode $grant, $params = array())
     {
         if (is_string($grant)) {
             if ( ! class_exists($grant)) {
                 throw new \InvalidArgumentException('Unknown grant "'.$grant.'"');
             }
             $grant = new $grant;
-        } elseif ( ! $grant instanceof League\OAuth2\Client\Grant\GrantInterface) {
-            throw new \InvalidArgumentException($grant.' is not an instance of League\OAuth2\Client\Grant\GrantInterface');
+        } elseif ( ! $grant instanceof OAuth2\Client\Grant\GrantInterface) {
+            throw new \InvalidArgumentException($grant.' is not an instance of OAuth2\Client\Grant\GrantInterface');
         }
 
         $defaultParams = [
