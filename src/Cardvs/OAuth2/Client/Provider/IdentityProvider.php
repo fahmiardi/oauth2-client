@@ -19,9 +19,14 @@ class IdentityProvider extends LeagueIdentityProvider
         }
     }
 
-    public function getAccessToken(LeagueAuthorizationcode $grant, $params = array())
+    public function getAccessToken($grant = 'authorization_code', $params = array())
     {
         if (is_string($grant)) {
+            if (isset($params['self']) && $params['self'] == true) {
+                $grant = 'Cardvs\\OAuth2\\Client\\Grant\\'.ucfirst(str_replace('_', '', $grant));
+            } else {
+                $grant = 'OAuth2\\Client\\Grant\\'.ucfirst(str_replace('_', '', $grant));
+            }
             if ( ! class_exists($grant)) {
                 throw new \InvalidArgumentException('Unknown grant "'.$grant.'"');
             }
