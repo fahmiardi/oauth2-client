@@ -39,14 +39,7 @@ abstract class IdentityProvider extends LeagueIdentityProvider
 
         try {
             switch ($this->method) {
-                case 'get':
-                    $client = new GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
-                    $request = $client->get()->send();
-                    $response = $request->getBody();
-                    break;
                 case 'post':
-                case 'put':
-                case 'delete':
                     $client = new GuzzleClient($this->urlAccessToken());
                     $requestParamsOriginal = $requestParams;
                     unset($requestParams['authorization']);
@@ -73,5 +66,42 @@ abstract class IdentityProvider extends LeagueIdentityProvider
         }
 
         return $grant->handleResponse($result);
+    }
+
+    protected function fetchUserDetails(LeagueAccessToken $token, $force = false)
+    {
+        if ( ! $this->cachedUserDetailsResponse || $force == true) {
+
+            $url = $this->urlUserDetails($token);
+
+            try {
+
+                $client = new GuzzleClient($url);
+                $request = $client->get()->send();
+                $response = $request->getBody();
+
+            } catch (\Guzzle\Http\Exception\BadResponseException $e) {
+                $raw_response = explode("\n", $e->getResponse());
+                $response = end($raw_response);
+
+            }
+
+            $this->cachedUserDetailsResponse = $response;
+        }
+
+        switch ($this->responseType) {
+            case 'json':
+                $result = json_decode($this->cachedUserDetailsResponse, true);
+                break;
+            case 'string':
+                parse_str($this->cachedUserDetailsResponse, $result);
+                break;
+        }
+
+        if (isset($result['error']) && ! empty($result['error'])) {
+            throw new LeagueIDPException($result);
+        }
+
+        return $this->cachedUserDetailsResponse;
     }
 }
