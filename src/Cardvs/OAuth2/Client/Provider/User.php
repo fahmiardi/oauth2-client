@@ -1,10 +1,12 @@
 <?php
 namespace Cardvs\OAuth2\Client\Provider;
 
+use OAuth2\Client\Provider\User as LeagueUser;
+
 /**
 *
 */
-class User extends OAuth2\Client\Provider\User
+class User extends LeagueUser
 {
 
     public $gender = null;

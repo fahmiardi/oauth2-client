@@ -2,6 +2,7 @@
 namespace Cardvs\OAuth2\Client\Provider;
 
 use Cardvs\OAuth2\Client\Provider\IdentityProvider;
+use OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 /**
 *
@@ -19,12 +20,12 @@ class Cardvs extends IdentityProvider
         return 'http://apis.cardvs.com/oauth2/token';
     }
 
-    public function urlUserDetails(OAuth2\Client\Token\AccessToken $token)
+    public function urlUserDetails(LeagueAccessToken $token)
     {
         return 'http://apis.cardvs.com/shop/people/me?access_token='.$token;
     }
 
-    public function userDetails($response, OAuth2\Client\Token\AccessToken $token)
+    public function userDetails($response, LeagueAccessToken $token)
     {
         $response = (array) $response;
         $user = new Cardvs\OAuth2\Client\Provider\User;

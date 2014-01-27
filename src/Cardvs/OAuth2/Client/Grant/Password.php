@@ -1,9 +1,10 @@
 <?php
 namespace Cardvs\OAuth2\Client\Grant;
 
-use OAuth2\Client\Token\AccessToken as AccessToken;
+use OAuth2\Client\Token\AccessToken as LeagueAccessToken;
+use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
 
-class Password implements OAuth2\Client\Grant\GrantInterface
+class Password implements LeagueGrantInterface
 {
     public function __toString()
     {
@@ -17,6 +18,6 @@ class Password implements OAuth2\Client\Grant\GrantInterface
 
     public function handleResponse($response = [])
     {
-        return new AccessToken($response);
+        return new LeagueAccessToken($response);
     }
 }

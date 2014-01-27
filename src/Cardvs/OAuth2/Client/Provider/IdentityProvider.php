@@ -1,20 +1,24 @@
 <?php
 namespace Cardvs\OAuth2\Client\Provider;
 
+use OAuth2\Client\Provider\IdentityProvider as LeagueIdentityProvider;
+use OAuth2\Client\Grant\Authorizationcode as LeagueAuthorizationcode;
+use OAuth2\Client\Grant\GrantInterface as LeagueGrantInterface;
+
 /**
 *
 */
-class IdentityProvider extends OAuth2\Client\Provider\IdentityProvider
+class IdentityProvider extends LeagueIdentityProvider
 {
 
-    public function getAccessToken(OAuth2\Client\Grant\Authorizationcode $grant, $params = array())
+    public function getAccessToken(LeagueAuthorizationcode $grant, $params = array())
     {
         if (is_string($grant)) {
             if ( ! class_exists($grant)) {
                 throw new \InvalidArgumentException('Unknown grant "'.$grant.'"');
             }
             $grant = new $grant;
-        } elseif ( ! $grant instanceof OAuth2\Client\Grant\GrantInterface) {
+        } elseif ( ! $grant instanceof LeagueGrantInterface) {
             throw new \InvalidArgumentException($grant.' is not an instance of OAuth2\Client\Grant\GrantInterface');
         }
 
@@ -48,7 +52,7 @@ class IdentityProvider extends OAuth2\Client\Provider\IdentityProvider
                     $response = $request->getBody();
                     break;
             }
-        } catch (Guzzle\Http\Exception\BadResponseException $e) {
+        } catch (\Guzzle\Http\Exception\BadResponseException $e) {
             $raw_response = explode("\n", $e->getResponse());
             $response = end($raw_response);
         }
